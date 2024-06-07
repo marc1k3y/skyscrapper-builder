@@ -9,7 +9,7 @@ export default function App() {
   useEffect(() => {
     if (initDataRaw) {
       localStorage.setItem("tma", initDataRaw);
-      setTimeout(() => { AuthInitAPI().then((res) => setTest(JSON.stringify(res))); }, 2000);
+      setTimeout(() => { AuthInitAPI(initDataRaw).then((res) => setTest(JSON.stringify(res))); }, 2000);
     }
   }, []);
 
