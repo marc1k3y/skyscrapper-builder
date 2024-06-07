@@ -3,15 +3,21 @@ import { useEffect, useState } from "react";
 import { AuthInitAPI } from "./api/auth";
 
 export default function App() {
+  const [sended, setSended] = useState(false);
   const [test, setTest] = useState("");
   const { initDataRaw } = retrieveLaunchParams();
 
   useEffect(() => {
-    if (initDataRaw) {
-      localStorage.setItem("tma", initDataRaw);
-      setTimeout(() => { AuthInitAPI(initDataRaw).then((res) => setTest(JSON.stringify(res))); }, 2000);
+    if (!sended) {
+      if (initDataRaw) {
+        localStorage.setItem("tma", initDataRaw);
+        AuthInitAPI(initDataRaw).then((res) => {
+          setTest(JSON.stringify(res));
+          setSended(true);
+        })
+      }
     }
-  }, []);
+  }, [initDataRaw]);
 
   return (
     <div>
