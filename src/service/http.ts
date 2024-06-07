@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const RENDER_NODE_API = "https://skyb-node.onrender.com:10000/api";
+const RENDER_NODE_API = "https://skyb-node.onrender.com/api/";
 
 const $authHost = axios.create({ baseURL: RENDER_NODE_API });
 

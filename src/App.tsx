@@ -8,11 +8,15 @@ export default function App() {
 
   useEffect(() => {
     if (initDataRaw) {
-      AuthInitAPI(initDataRaw).then((res) => setTest(JSON.stringify(res)));
+      localStorage.setItem("tma", initDataRaw);
+      setTimeout(() => { AuthInitAPI().then((res) => setTest(JSON.stringify(res))); }, 2000);
     }
   }, []);
 
   return (
-    <div>response: {test}</div>
+    <div>
+      <div>{`tma ${initDataRaw}`}</div>
+      <div>{`response: ${test}`}</div>
+    </div>
   );
 }
