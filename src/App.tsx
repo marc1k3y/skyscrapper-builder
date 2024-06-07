@@ -1,18 +1,18 @@
-import { retrieveLaunchParams, useInitData, useInitDataRaw } from "@tma.js/sdk-react";
+import { retrieveLaunchParams } from "@tma.js/sdk-react";
+import { useEffect, useState } from "react";
+import { AuthInitAPI } from "./api/auth";
 
-function App() {
-  const initDataHook = useInitData();
-  const initDataRawHook = useInitDataRaw();
-  const { initData, initDataRaw } = retrieveLaunchParams()
+export default function App() {
+  const [test, setTest] = useState("");
+  const { initDataRaw } = retrieveLaunchParams();
+
+  useEffect(() => {
+    if (initDataRaw) {
+      AuthInitAPI(initDataRaw).then((res) => setTest(JSON.stringify(res)));
+    }
+  }, []);
 
   return (
-    <p className="read-the-docs">
-      <div>initData: {JSON.stringify(initData)}</div>
-      <div>initDataRaw: {JSON.stringify(initDataRaw)}</div>
-      <div>initDataHook: {JSON.stringify(initDataHook)}</div>
-      <div>initDataRawHook: {JSON.stringify(initDataRawHook)}</div>
-    </p>
-  )
+    <div>response: {test}</div>
+  );
 }
-
-export default App
