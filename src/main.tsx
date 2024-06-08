@@ -2,13 +2,13 @@ import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import { SDKProvider } from "@tma.js/sdk-react";
+import { AppProviders } from "./service/Providers.tsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <SDKProvider>
+    <AppProviders>
       <App />
-    </SDKProvider>
+    </AppProviders>
   </React.StrictMode>,
 );
