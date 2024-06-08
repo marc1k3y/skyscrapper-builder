@@ -8,3 +8,12 @@ export const GameSyncAPI = async () => {
     return console.error(e);
   }
 }
+
+export const GameCloseAPI = async () => {
+  try {
+    const { data } = await $authHost.get("game/close");
+    return data;
+  } catch (e) {
+    return console.error(e);
+  }
+}

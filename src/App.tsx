@@ -1,7 +1,7 @@
 import { retrieveLaunchParams } from "@tma.js/sdk-react";
 import { useEffect, useState } from "react";
 import { AuthInitAPI } from "./api/auth";
-import { GameSyncAPI } from "./api/game";
+import { GameCloseAPI, GameSyncAPI } from "./api/game";
 
 export default function App() {
   const [cycles, setCycles] = useState(0);
@@ -33,6 +33,10 @@ export default function App() {
       }
     }
   }, [initDataRaw, sended]);
+
+  useEffect(() => () => {
+    GameCloseAPI().then((res) => console.log(res));
+  }, []);
 
   return (
     <div>
