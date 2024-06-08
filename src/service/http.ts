@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const RENDER_NODE_API = "https://skyb-node.onrender.com/api/";
+const REMOTE_HOST_API = "https://api.tmaserver.online/api/";
 
-const $authHost = axios.create({ baseURL: RENDER_NODE_API });
+const $authHost = axios.create({ baseURL: REMOTE_HOST_API });
 
 const authInterceptor = (config: any) => {
   config.headers.authorization = `tma ${localStorage.getItem("tma")}`;

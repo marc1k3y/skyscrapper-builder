@@ -1,8 +1,8 @@
 import { $authHost } from "../service/http";
 
-export const AuthInitAPI = async () => {
+export const GameSyncAPI = async () => {
   try {
-    const { data } = await $authHost.get("auth/init");
+    const { data } = await $authHost.get("game/sync");
     return data;
   } catch (e) {
     return console.error(e);

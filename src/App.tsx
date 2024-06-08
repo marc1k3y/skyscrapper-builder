@@ -1,28 +1,40 @@
 import { retrieveLaunchParams } from "@tma.js/sdk-react";
 import { useEffect, useState } from "react";
 import { AuthInitAPI } from "./api/auth";
+import { GameSyncAPI } from "./api/game";
 
 export default function App() {
-  const [sended, setSended] = useState(false);
-  const [test, setTest] = useState("");
+  const [sended, setSended] = useState({ auth: false, sync: false });
+  const [user, setUser] = useState("");
   const { initDataRaw } = retrieveLaunchParams();
 
   useEffect(() => {
-    if (!sended) {
+    if (!sended.auth || !sended.sync) {
       if (initDataRaw) {
-        localStorage.setItem("tma", initDataRaw);
-        AuthInitAPI(initDataRaw).then((res) => {
-          setTest(JSON.stringify(res));
-          setSended(true);
-        })
+        if (localStorage.getItem("tma")) {
+          if (!sended.auth) {
+            AuthInitAPI().then((res) => {
+              if (res.status === "ok") {
+                setUser(res.response);
+                setSended((prev) => ({ ...prev, auth: true }));
+              }
+            })
+          } else if (!sended.sync) {
+            GameSyncAPI().then((res) => {
+              if (res.status === "ok") {
+              }
+            })
+          }
+        } else {
+          localStorage.setItem("tma", initDataRaw);
+        }
       }
     }
-  }, [initDataRaw]);
+  }, [initDataRaw, sended]);
 
   return (
     <div>
-      <div>{`tma ${initDataRaw}`}</div>
-      <div>{`response: ${test}`}</div>
+      <div>{`user: ${user}`}</div>
     </div>
   );
 }
