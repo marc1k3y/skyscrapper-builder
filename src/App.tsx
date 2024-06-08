@@ -4,11 +4,13 @@ import { AuthInitAPI } from "./api/auth";
 import { GameSyncAPI } from "./api/game";
 
 export default function App() {
+  const [cycles, setCycles] = useState(0);
   const [sended, setSended] = useState({ auth: false, sync: false });
   const [user, setUser] = useState("");
   const { initDataRaw } = retrieveLaunchParams();
 
   useEffect(() => {
+    setCycles(cycles + 1);
     if (!sended.auth || !sended.sync) {
       if (initDataRaw) {
         if (localStorage.getItem("tma")) {
@@ -34,6 +36,7 @@ export default function App() {
 
   return (
     <div>
+      <div>{`useEffect cycles: ${cycles}`}</div>
       <div>{`user: ${user}`}</div>
     </div>
   );
